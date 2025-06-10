@@ -1,0 +1,25 @@
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:views="clr-namespace:BlazorHybridApp.Views"
+       x:Class="BlazorHybridApp.AppShell"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.TabBarTitleColor="#425d7c"
+       Shell.TabBarUnselectedColor="#B0B0B0">
+    <TabBar>
+        <Tab Title="Home" Icon="house_door_fill.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePageView}" />
+        </Tab>
+        <Tab Title="Tickets" Icon="ticket_fill.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:TicketPageView}" />
+        </Tab>
+        <Tab Icon="qr_code_scan.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:ScanPageView}" />
+        </Tab>
+        <Tab Title="Meny" Icon="grid_fill.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:MenyPageView}" />
+        </Tab>
+        <Tab Title="Create" Icon="plus.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:CreateView}" />
+        </Tab>
+    </TabBar>
+</Shell>

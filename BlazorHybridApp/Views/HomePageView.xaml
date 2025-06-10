@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:BlazorHybridApp"
+    x:Class="BlazorHybridApp.Views.HomePageView">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <!-- Top bar with menu, search and notification -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Padding="8,12,16,8">
+            <!-- Menu icon with blue dot -->
+            <Frame HeightRequest="40"
+                   WidthRequest="40"
+                   CornerRadius="20"
+                   BackgroundColor="#FFDFDFDF"
+                   Padding="0"
+                   HasShadow="False"
+                   BorderColor="Transparent">
+                <Grid>
+                    <Image Source="grid_fill.svg"
+                           HeightRequest="20"
+                           WidthRequest="20"/>
+                </Grid>
+            </Frame>
+
+            <!-- Search bar -->
+            <Frame Grid.Column="1"
+                   BackgroundColor="#FFDFDFDF"
+                   CornerRadius="20"
+                   Padding="12,0"
+                   HasShadow="False"
+                   Margin="12,0">
+                <Grid ColumnDefinitions="Auto,*">
+                    <Image Source="search.svg"
+                           HeightRequest="20"
+                           WidthRequest="20"/>
+                    <Label Grid.Column="1"
+                           Text="Search"
+                           TextColor="#777777"
+                           VerticalOptions="Center"
+                           Margin="8,0,0,0"
+                           FontFamily="RobotoRegular"
+                           FontSize="16"/>
+                </Grid>
+            </Frame>
+            <!-- Notification bell -->
+            <Frame Grid.Column="2"
+                   HeightRequest="40"
+                   WidthRequest="40"
+                   CornerRadius="20"
+                   BackgroundColor="#FFDFDFDF"
+                   Padding="0"
+                   HasShadow="False"
+                   BorderColor="Transparent">
+                <Image Source="bell.svg"
+                       HeightRequest="20"
+                       WidthRequest="20"/>
+            </Frame>
+        </Grid>
+
+        <!-- Navigation tabs -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*,*"
+              Margin="8,8,0,8">
+            <!-- Overview Tab -->
+            <StackLayout Grid.Column="0"
+                         x:Name="OverviewTab">
+                <Label Text="Overview"
+                       FontSize="14"
+                       FontFamily="RobotoMedium"
+                       HorizontalOptions="Center"
+                       TextColor="Black"/>
+                <BoxView x:Name="OverviewIndicator"
+                         HeightRequest="2"
+                         BackgroundColor="Black"
+                         HorizontalOptions="Fill"
+                         Margin="12,4,12,0"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverviewTabTapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <!-- My Tab -->
+            <StackLayout Grid.Column="1"
+                         x:Name="MyTab">
+                <Label Text="My"
+                       FontSize="14"
+                       x:Name="MyTabLabel"
+                       FontFamily="RobotoRegular"
+                       HorizontalOptions="Center"
+                       TextColor="#777777"/>
+                <BoxView x:Name="MyIndicator"
+                         HeightRequest="2"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Fill"
+                         Margin="12,4,12,0"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnMyTabTapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <!-- All Tab -->
+            <StackLayout Grid.Column="2"
+                         x:Name="AllTab">
+                <Label Text="All"
+                       FontSize="14"
+                       x:Name="AllTabLabel"
+                       FontFamily="RobotoRegular"
+                       HorizontalOptions="Center"
+                       TextColor="#777777"/>
+                <BoxView x:Name="AllIndicator"
+                         HeightRequest="2"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Fill"
+                         Margin="12,4,12,0"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAllTabTapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
+        <!-- Content area for each tab -->
+        <ScrollView Grid.Row="2">
+            <StackLayout>
+                <!-- Overview Tab Content -->
+                <StackLayout x:Name="OverviewContent"
+                             Padding="16,16"
+                             IsVisible="true">
+                    <!-- Asset card -->
+                    <Frame BackgroundColor="White"
+                           CornerRadius="12"
+                           Padding="16"
+                           HasShadow="False">
+                        <StackLayout Spacing="16">
+                            <!-- Asset header -->
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackLayout Orientation="Horizontal"
+                                             Spacing="8">
+                                    <Label Text="Net asset value"
+                                           FontSize="20"
+                                           FontFamily="RobotoMedium"
+                                           VerticalOptions="Center"/>
+                                    <Image Source="eye.png"
+                                           HeightRequest="20"
+                                           WidthRequest="20"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                            </Grid>
+
+                            <!-- Amount -->
+                            <Label Text="• • • • kr"
+                                   FontSize="24"
+                                   FontFamily="RobotoBold"/>
+
+                            <!-- Percentage -->
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="+81.92%"
+                                       TextColor="#22C55E"
+                                       FontSize="18"
+                                       FontFamily="RobotoBold"/>
+                                <Label Text="• • • • kr"
+                                       TextColor="#777777"
+                                       FontSize="18"
+                                       FontFamily="RobotoRegular"/>
+                            </StackLayout>
+
+                            <!-- Chart placeholder -->
+                            <Frame HeightRequest="200"
+                                   Padding="0"
+                                   HasShadow="False"
+                                   BackgroundColor="#F2F7FF"
+                                   CornerRadius="8"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <!-- My Tab Content -->
+                <StackLayout x:Name="MyContent"
+                             Padding="16,16"
+                             IsVisible="false">
+                    <Frame BackgroundColor="White"
+                           CornerRadius="12"
+                           Padding="16"
+                           HasShadow="False">
+                        <StackLayout>
+                            <Label Text="My Items"
+                                   FontSize="20"
+                                   FontFamily="RobotoMedium"/>
+                            <Label Text="This is the My tab content"
+                                   FontFamily="RobotoRegular"
+                                   Margin="0,8,0,0"/>
+                            <!-- Add your "My" tab specific content here -->
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <!-- All Tab Content -->
+                <StackLayout 
+                        x:Name="AllContent"
+                        IsVisible="false">
+                    <Frame BackgroundColor="White"
+                           Padding="12,4"
+                           HasShadow="False"
+                           BorderColor="Transparent"> <!-- Remove or set to transparent -->
+                        <Grid RowDefinitions="*,Auto">
+                            <StackLayout Spacing="4" Grid.Row="0">
+                                <!-- Ticket header with ID, date and status -->
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <Label Text="Ticket ID: 61039"
+                                           FontSize="16"
+                                           TextColor="#333333"
+                                           FontFamily="RobotoMedium"
+                                           VerticalOptions="Center"/>
+
+                                    <StackLayout Grid.Column="2"
+                                            Orientation="Horizontal"
+                                            Spacing="8">
+                                        <Label Text="2025-06-04 09:00"
+                                               TextColor="#666666"
+                                               FontSize="14"
+                                               FontFamily="RobotoRegular"
+                                               VerticalOptions="Center"/>
+
+                                        <Frame BackgroundColor="#6B7280"
+                                               CornerRadius="4"
+                                               Padding="8,2"
+                                               HasShadow="False">
+                                            <Label Text="New"
+                                                   TextColor="White"
+                                                   FontSize="12"
+                                                   FontFamily="RobotoMedium"/>
+                                        </Frame>
+                                    </StackLayout>
+                                </Grid>
+
+                                <!-- Description -->
+                                <Label Text="Lorem ipsum dolor sit amet, consectetur."
+                                       FontFamily="RobotoRegular"
+                                       FontSize="14"
+                                       Margin="0,4,0,4"/>
+
+                                <!-- Service info -->
+                                <StackLayout Orientation="Horizontal"
+                                        Spacing="4">
+                                    <Label Text="Service •"
+                                           TextColor="#FF464646"
+                                           FontSize="14"
+                                           FontFamily="RobotoRegular"
+                                           VerticalOptions="Center"/>
+                                    <Image Source="person.png"
+                                           HeightRequest="16"
+                                           WidthRequest="16"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                            
+                            <!-- Bottom border only -->
+                            <BoxView Grid.Row="1" 
+                                     HeightRequest="1" 
+                                     BackgroundColor="#FFE9E9E9" 
+                                     HorizontalOptions="Fill"
+                                     Margin="0,8,0,0"/>
+                        </Grid>
+                    </Frame>
+                    <Frame BackgroundColor="White"
+                           Padding="12,4"
+                           HasShadow="False"
+                           BorderColor="Transparent"> <!-- Remove or set to transparent -->
+                        <Grid RowDefinitions="*,Auto">
+                            <StackLayout Spacing="4" Grid.Row="0">
+                                <!-- Ticket header with ID, date and status -->
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <Label Text="Ticket ID: 61039"
+                                           FontSize="16"
+                                           TextColor="#333333"
+                                           FontFamily="RobotoMedium"
+                                           VerticalOptions="Center"/>
+
+                                    <StackLayout Grid.Column="2"
+                                            Orientation="Horizontal"
+                                            Spacing="8">
+                                        <Label Text="2025-06-04 09:00"
+                                               TextColor="#666666"
+                                               FontSize="14"
+                                               FontFamily="RobotoRegular"
+                                               VerticalOptions="Center"/>
+
+                                        <Frame BackgroundColor="#6B7280"
+                                               CornerRadius="4"
+                                               Padding="8,2"
+                                               HasShadow="False">
+                                            <Label Text="New"
+                                                   TextColor="White"
+                                                   FontSize="12"
+                                                   FontFamily="RobotoMedium"/>
+                                        </Frame>
+                                    </StackLayout>
+                                </Grid>
+
+                                <!-- Description -->
+                                <Label Text="Lorem ipsum dolor sit amet, consectetur."
+                                       FontFamily="RobotoRegular"
+                                       FontSize="14"
+                                       Margin="0,4,0,4"/>
+
+                                <!-- Service info -->
+                                <StackLayout Orientation="Horizontal"
+                                        Spacing="4">
+                                    <Label Text="Service •"
+                                           TextColor="#FF464646"
+                                           FontSize="14"
+                                           FontFamily="RobotoRegular"
+                                           VerticalOptions="Center"/>
+                                    <Image Source="person.png"
+                                           HeightRequest="16"
+                                           WidthRequest="16"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                            
+                            <!-- Bottom border only -->
+                            <BoxView Grid.Row="1" 
+                                     HeightRequest="1" 
+                                     BackgroundColor="#FFE9E9E9" 
+                                     HorizontalOptions="Fill"
+                                     Margin="0,8,0,0"/>
+                        </Grid>
+                    </Frame>
+                    <Frame BackgroundColor="White"
+                           Padding="12,4"
+                           HasShadow="False"
+                           BorderColor="Transparent"> <!-- Remove or set to transparent -->
+                        <Grid RowDefinitions="*,Auto">
+                            <StackLayout Spacing="4" Grid.Row="0">
+                                <!-- Ticket header with ID, date and status -->
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <Label Text="Ticket ID: 61039"
+                                           FontSize="16"
+                                           TextColor="#333333"
+                                           FontFamily="RobotoMedium"
+                                           VerticalOptions="Center"/>
+
+                                    <StackLayout Grid.Column="2"
+                                            Orientation="Horizontal"
+                                            Spacing="8">
+                                        <Label Text="2025-06-04 09:00"
+                                               TextColor="#666666"
+                                               FontSize="14"
+                                               FontFamily="RobotoRegular"
+                                               VerticalOptions="Center"/>
+
+                                        <Frame BackgroundColor="#6B7280"
+                                               CornerRadius="4"
+                                               Padding="8,2"
+                                               HasShadow="False">
+                                            <Label Text="New"
+                                                   TextColor="White"
+                                                   FontSize="12"
+                                                   FontFamily="RobotoMedium"/>
+                                        </Frame>
+                                    </StackLayout>
+                                </Grid>
+
+                                <!-- Description -->
+                                <Label Text="Lorem ipsum dolor sit amet, consectetur."
+                                       FontFamily="RobotoRegular"
+                                       FontSize="14"
+                                       Margin="0,4,0,4"/>
+
+                                <!-- Service info -->
+                                <StackLayout Orientation="Horizontal"
+                                        Spacing="4">
+                                    <Label Text="Service •"
+                                           TextColor="#FF464646"
+                                           FontSize="14"
+                                           FontFamily="RobotoRegular"
+                                           VerticalOptions="Center"/>
+                                    <Image Source="person.png"
+                                           HeightRequest="16"
+                                           WidthRequest="16"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                            
+                            <!-- Bottom border only -->
+                            <BoxView Grid.Row="1" 
+                                     HeightRequest="1" 
+                                     BackgroundColor="#FFE9E9E9" 
+                                     HorizontalOptions="Fill"
+                                     Margin="0,8,0,0"/>
+                        </Grid>
+                    </Frame>
+                    <Frame BackgroundColor="White"
+                           Padding="12,4"
+                           HasShadow="False"
+                           BorderColor="Transparent"> <!-- Remove or set to transparent -->
+                        <Grid RowDefinitions="*,Auto">
+                            <StackLayout Spacing="4" Grid.Row="0">
+                                <!-- Ticket header with ID, date and status -->
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <Label Text="Ticket ID: 61039"
+                                           FontSize="16"
+                                           TextColor="#333333"
+                                           FontFamily="RobotoMedium"
+                                           VerticalOptions="Center"/>
+
+                                    <StackLayout Grid.Column="2"
+                                            Orientation="Horizontal"
+                                            Spacing="8">
+                                        <Label Text="2025-06-04 09:00"
+                                               TextColor="#666666"
+                                               FontSize="14"
+                                               FontFamily="RobotoRegular"
+                                               VerticalOptions="Center"/>
+
+                                        <Frame BackgroundColor="#6B7280"
+                                               CornerRadius="4"
+                                               Padding="8,2"
+                                               HasShadow="False">
+                                            <Label Text="New"
+                                                   TextColor="White"
+                                                   FontSize="12"
+                                                   FontFamily="RobotoMedium"/>
+                                        </Frame>
+                                    </StackLayout>
+                                </Grid>
+
+                                <!-- Description -->
+                                <Label Text="Lorem ipsum dolor sit amet, consectetur."
+                                       FontFamily="RobotoRegular"
+                                       FontSize="14"
+                                       Margin="0,4,0,4"/>
+
+                                <!-- Service info -->
+                                <StackLayout Orientation="Horizontal"
+                                        Spacing="4">
+                                    <Label Text="Service •"
+                                           TextColor="#FF464646"
+                                           FontSize="14"
+                                           FontFamily="RobotoRegular"
+                                           VerticalOptions="Center"/>
+                                    <Image Source="person.png"
+                                           HeightRequest="16"
+                                           WidthRequest="16"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                            
+                            <!-- Bottom border only -->
+                            <BoxView Grid.Row="1" 
+                                     HeightRequest="1" 
+                                     BackgroundColor="#FFE9E9E9" 
+                                     HorizontalOptions="Fill"
+                                     Margin="0,8,0,0"/>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
